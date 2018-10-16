@@ -2,7 +2,7 @@ package Saturn;
 
 import java.util.Scanner;
 public class Menu {
-    public static void display()
+    public static void displayMainMenu()
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("Welcome to Carzzy");

@@ -4,6 +4,10 @@ public class App
 {
     public static void main( String[] args )
     {
-        Menu.display();
+        kickStart();
+    }
+
+    private static void kickStart(){
+        Menu.displayMainMenu();
     }
 }
