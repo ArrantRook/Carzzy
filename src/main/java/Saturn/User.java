@@ -2,7 +2,7 @@ package Saturn;
 
 import java.util.Scanner;
 public class User {
-    public static void signSUp()
+    public static void signUp()
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("Kindly enter your name");
@@ -14,7 +14,7 @@ public class User {
         System.out.println("Kindly enter E-mail address");
         String email = sc.nextLine();
         System.out.println("Kindly choose your country");
-        System.out.println("1. Italy \t 2. India");
+        System.out.println("1. Italy \t 2. India ");
         String country = sc.nextLine();
     }
     public static void login()
