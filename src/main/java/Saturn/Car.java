@@ -14,6 +14,7 @@ public class Car {
     int country;
     String registrationNumber;
     int carID;
+
     Car(String modelName, String carCompanyName,int numberOfSeats, float groundClearance,
         int enginePower, int carType, long fuelTankCapacity, int fuelType, float weekdayPrice,
         float weekendPrice, int country, String registrationNumber, int carID)

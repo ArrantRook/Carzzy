@@ -5,24 +5,25 @@ public class App
     private static Car[] carCollection = new Car[36];
     public static void main( String[] args )
     {
+        setupSystem();
         kickStart();
     }
     private static void kickStart(){
-        setupSystem();
-        displayWelcomeMessage();
+        Menu.displayWelcomeMessage();
         int userCountry = Menu.getUserCountry();
         displayCarList(userCountry);
         int rentalChoice = Menu.getUserRentalChoice();
         Car userCarChoice = Search.searchCarByID(rentalChoice, carCollection);
+        int noOfDays = Menu.getNumberOfDaysOfRent();
+        float price = userCarChoice.getRentalPrice(noOfDays);
+        int postConfirmChoice = Menu.confirmRentalAndGetNextUserChoice(price, noOfDays, userCarChoice);
+        if(postConfirmChoice == 1) {
+            Menu.displayTermsAndConditions();
+        }
+        UserTransaction transaction = new UserTransaction();
+        transaction.completeUserTransaction();
+    }
 
-    }
-    private static void displayWelcomeMessage(){
-        System.out.println("");
-        System.out.println("***********************************************************************");
-        System.out.println("        WELCOME to Carzzy, the only SUPERCAR rentals in the world!      ");
-        System.out.println("***********************************************************************");
-        System.out.println("");
-    }
     private static void displayCarList(int userCountry){
         for(int i = 0; i < carCollection.length - 1; i++){
             if (carCollection[i].country == userCountry){
