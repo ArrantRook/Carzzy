@@ -39,18 +39,16 @@ public class Menu {
         System.out.println("Enter CarID of the car you want to rent");
         System.out.println("Type 2 to change the country");
         System.out.println("Type 3 to exit App");
-        int userChoice = sc.nextInt();
-        return userChoice;
+        return sc.nextInt();
     }
     public static int getNumberOfDaysOfRent(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("What day do you want to get your rented car?");
+        System.out.println("What day do you want to get your rented car? Please enter date in dd/mm/yyyy format");
         String firstDay = sc.nextLine();
         System.out.println("Type the time in the following format: HH:MM am/pm");
         String time = sc.nextLine();
         System.out.println("How many days do you want to rent the car for");
-        int noOfDays = sc.nextInt();
-        return noOfDays;
+        return sc.nextInt();
     }
     public static void displayTermsAndConditions(){
         System.out.println("there will be no driver given. you will have to drive the car yourself");
@@ -62,7 +60,7 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         System.out.println("Your car is " + cars.carCompany + " " + cars.carModel);
         System.out.println("You are renting the car for " + noOfDays + " days");
-        System.out.println("The total amount to be paid is Rs" + price);
+        System.out.println("The total amount to be paid is Rs " + price);
         System.out.println("1. Read our Terms & conditions \t 2. Continue with transaction");
         int userChoice = sc.nextInt();
         if(userChoice < 1 || userChoice > 2){

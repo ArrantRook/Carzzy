@@ -2,9 +2,9 @@ package Saturn;
 
 import java.util.Scanner;
 public class UserTransaction {
-    String cardNumber;
-    String cvv;
-    String otp;
+    private String cardNumber;
+    private String cvv;
+    private String otp;
 
     public void completeUserTransaction(){
         Scanner sc = new Scanner(System.in);
@@ -14,6 +14,8 @@ public class UserTransaction {
         cvv = sc.nextLine();
         System.out.println("Enter OTP given to you in your phone");
         otp = sc.nextLine();
-        System.out.println("THANK YOU for using Carzzy, the only SUPERCAR rentals in the world!");
+        System.out.println("Your car will be delivered to your address on your given date and time. THANK YOU for using Carzzy, the only SUPERCAR rentals in the world!");
+        System.out.println("Please Enter to get another car!");
+        sc.nextLine();
     }
 }

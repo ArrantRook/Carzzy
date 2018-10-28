@@ -9,19 +9,38 @@ public class App
         kickStart();
     }
     private static void kickStart(){
+        Car userCarChoice;
         Menu.displayWelcomeMessage();
         int userCountry = Menu.getUserCountry();
         displayCarList(userCountry);
-        int rentalChoice = Menu.getUserRentalChoice();
-        Car userCarChoice = Search.searchCarByID(rentalChoice, carCollection);
-        int noOfDays = Menu.getNumberOfDaysOfRent();
-        float price = userCarChoice.getRentalPrice(noOfDays);
-        int postConfirmChoice = Menu.confirmRentalAndGetNextUserChoice(price, noOfDays, userCarChoice);
-        if(postConfirmChoice == 1) {
-            Menu.displayTermsAndConditions();
+        int rentalChoice;
+        do{
+            rentalChoice = Menu.getUserRentalChoice();
+            if(rentalChoice == 3)
+                System.exit(0);
+            if(rentalChoice == 2) {
+                kickStart();
+                break;
+            }
+            else{
+                userCarChoice = Search.searchCarByID(rentalChoice, carCollection);
+                if(userCarChoice == null){
+                    System.out.println("Invalid car choice, please enter a valid Car ID");
+                }
+                else{
+                    int noOfDays = Menu.getNumberOfDaysOfRent();
+                    float price = userCarChoice.getRentalPrice(noOfDays);
+                    int postConfirmChoice = Menu.confirmRentalAndGetNextUserChoice(price, noOfDays, userCarChoice);
+                    if (postConfirmChoice == 1) {
+                        Menu.displayTermsAndConditions();
+                    }
+                    UserTransaction transaction = new UserTransaction();
+                    transaction.completeUserTransaction();
+                    kickStart();
+                }
+            }
         }
-        UserTransaction transaction = new UserTransaction();
-        transaction.completeUserTransaction();
+        while(userCarChoice == null);
     }
 
     private static void displayCarList(int userCountry){
@@ -35,9 +54,9 @@ public class App
                 System.out.println("Type of car: " + CarType.getCarTypeName(carCollection[i].carType));
                 System.out.println("Fuel Capacity: " + carCollection[i].fuelTankCapacity + "l");
                 System.out.println("Fuel Type: " + FuelType.getFuelTypeName(carCollection[i].fuelType));
-                System.out.println("Weekday Price: Rs" + carCollection[i].weekdayPrice);
-                System.out.println("Weekend Price: Rs" + carCollection[i].weekendPrice);
-                System.out.println("Registeration Number: " + carCollection[i].registrationNumber + "\n \n");
+                System.out.println("Weekday Price: Rs " + carCollection[i].weekdayPrice);
+                System.out.println("Weekend Price: Rs 2" + carCollection[i].weekendPrice);
+                System.out.println("Registration Number: " + carCollection[i].registrationNumber + "\n \n");
             }
         }
     }
@@ -100,90 +119,90 @@ public class App
 
         carCollection[14] = new Car("Quattroporte","Maserati", 4,
                 12, 344, CarType.SEDAN, 80, FuelType.PETROL,
-                5000, 770, OperatingCountry.ITALY, "VB 219 TG", 124);
+                5000, 7700, OperatingCountry.ITALY, "VB 219 TG", 124);
 
         carCollection[15] = new Car("A4", "Audi", 4,
                 13, 181, CarType.SEDAN, 54, FuelType.PETROL,
-                470, 740, OperatingCountry.GERMANY, "DF 3256 GH", 125);
+                4700, 7400, OperatingCountry.GERMANY, "DF 3256 GH", 125);
 
         carCollection[16] = new Car("i8", "BMW", 4,
                 15, 356, CarType.SEDAN, 42, FuelType.ELECTRIC,
-                580, 820, OperatingCountry.GERMANY, "UH 6513 EV", 126);
+                5800, 8200, OperatingCountry.GERMANY, "UH 6513 EV", 126);
 
         carCollection[17] = new Car("Maybach S650", "Mercedes", 4,
                 14, 621, CarType.SEDAN, 80, FuelType.PETROL,
-                620, 880, OperatingCountry.GERMANY, "EU 2689 YN", 127);
+                6200, 8800, OperatingCountry.GERMANY, "EU 2689 YN", 127);
 
         carCollection[18] = new Car("Jazz", "Honda", 4,
                 16, 93, CarType.HATCHBACK, 40, FuelType.PETROL,
-                100, 140, OperatingCountry.INDIA, "KA 49 B 1469", 128);
+                1000, 1400, OperatingCountry.INDIA, "KA 49 B 1469", 128);
 
         carCollection[19] = new Car("Swift", "Maruti Suzuki", 4,
                 17, 101, CarType.HATCHBACK, 37, FuelType.DIESEL,
-                110, 150, OperatingCountry.INDIA, "DL 35 H 5808", 129);
+                1100, 1500, OperatingCountry.INDIA, "DL 35 H 5808", 129);
 
         carCollection[20] = new Car("Figo","Ford", 4,
                 17, 98, CarType.HATCHBACK, 41, FuelType.PETROL,
-                100, 140, OperatingCountry.INDIA, "MH 26 G 1057", 130);
+                1000, 1400, OperatingCountry.INDIA, "MH 26 G 1057", 130);
 
         carCollection[21] = new Car("500", "Abarth", 4,
                 10, 135, CarType.HATCHBACK, 35, FuelType.PETROL,
-                320, 390, OperatingCountry.ITALY, "RB 165 KX", 131);
+                3200, 3900, OperatingCountry.ITALY, "RB 165 KX", 131);
 
         carCollection[22] = new Car("Giulietta", "Alfa Romeo", 4,
                 11, 237, CarType.HATCHBACK, 60, FuelType.PETROL,
-                350, 420, OperatingCountry.ITALY, "AV 516 BB", 132);
+                3500, 4200, OperatingCountry.ITALY, "AV 516 BB", 132);
 
         carCollection[23] = new Car("FF", "Ferrari", 4,
                 12, 663, CarType.HATCHBACK, 91, FuelType.PETROL,
-                1000, 1800, OperatingCountry.ITALY, "BN 529 UT", 133);
+                10000, 18000, OperatingCountry.ITALY, "BN 529 UT", 133);
 
         carCollection[24] = new Car("i3", "BMW", 4,
                 14, 167, CarType.HATCHBACK, 46, FuelType.ELECTRIC,
-                400, 490, OperatingCountry.GERMANY, "FK 4726 SJ", 134);
+                4000, 4900, OperatingCountry.GERMANY, "FK 4726 SJ", 134);
 
         carCollection[25] = new Car("Up!", "Volkswagen",  4,
                 16, 542, CarType.HATCHBACK, 75, FuelType.PETROL,
-                350, 410, OperatingCountry.GERMANY, "BC 9285 NM", 135);
+                3500, 4100, OperatingCountry.GERMANY, "BC 9285 NM", 135);
 
         carCollection[26] = new Car("S1","Audi", 4,
                 12, 227, CarType.HATCHBACK, 50, FuelType.PETROL,
-                390, 460, OperatingCountry.GERMANY, "ZH 2369 GH", 136);
+                3900, 4600, OperatingCountry.GERMANY, "ZH 2369 GH", 136);
 
         carCollection[27] = new Car("Fortuner", "Toyota", 7,
                 22, 174, CarType.SUV, 50, FuelType.DIESEL,
-                110, 180, OperatingCountry.INDIA, "MH 92 T 4013", 137);
+                1100, 1800, OperatingCountry.INDIA, "MH 92 T 4013", 137);
 
         carCollection[28] = new Car("XUV500", "Mahindra", 7,
                 17, 139, CarType.SUV, 70, FuelType.PETROL,
-                120, 190, OperatingCountry.INDIA, "KA 82 B 7138", 138);
+                1200, 1900, OperatingCountry.INDIA, "KA 82 B 7138", 138);
 
         carCollection[29] = new Car("Endeavour", "Ford", 7,
                 22, 158, CarType.SUV, 80, FuelType.DIESEL,
-                130, 200, OperatingCountry.INDIA, "DL 76 K 1724", 139);
+                1300, 2000, OperatingCountry.INDIA, "DL 76 K 1724", 139);
 
         carCollection[30] = new Car("Urus", "Lamborghini", 7,
                 25, 562, CarType.SUV, 85, FuelType.PETROL,
-                1200, 2000, OperatingCountry.ITALY, "FN 121 ER", 140);
+                12000, 20000, OperatingCountry.ITALY, "FN 121 ER", 140);
 
         carCollection[31] = new Car("Levante", "Maserati", 7,
                 20, 344, CarType.SUV, 80, FuelType.PETROL,
-                1000, 1800, OperatingCountry.ITALY, "AS 562 DF", 141);
+                10000, 18000, OperatingCountry.ITALY, "AS 562 DF", 141);
 
         carCollection[32] = new Car("500X","Fiat", 7,
                 16, 138, CarType.SUV, 48, FuelType.PETROL,
-                950, 1500, OperatingCountry.ITALY, "QW 625 TY", 142);
+                9500, 15000, OperatingCountry.ITALY, "QW 625 TY", 142);
 
         carCollection[33] = new Car("X6", "BMW", 7,
                 19, 567, CarType.SUV, 85, FuelType.PETROL,
-                1800, 2500, OperatingCountry.GERMANY, "ZX 2936 CV", 143);
+                18000, 25000, OperatingCountry.GERMANY, "ZX 2936 CV", 143);
 
         carCollection[34] = new Car("Q7", "Audi", 7,
                 21, 268, CarType.SUV, 50, FuelType.PETROL,
-                1800, 2500, OperatingCountry.GERMANY, "LK 6478 JH", 144);
+                18000, 25000, OperatingCountry.GERMANY, "LK 6478 JH", 144);
 
         carCollection[35] = new Car("Cayene", "Porsche", 7,
                 21, 295, CarType.SUV, 49, FuelType.PETROL,
-                2000, 2700, OperatingCountry.GERMANY, "PO 3897 RE", 145);
+                20000, 27000, OperatingCountry.GERMANY, "PO 3897 RE", 145);
     }
 }
