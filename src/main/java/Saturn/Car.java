@@ -1,5 +1,6 @@
 package Saturn;
 
+/** has all the common properties and functions of the rental cars **/
 public class Car {
     String carModel;
     String carCompany;
@@ -15,10 +16,13 @@ public class Car {
     String registrationNumber;
     int carID;
 
+    /** constructor assigns values to all the variables above **/
+    /** gets values of the properties that all the cars would have **/
     Car(String modelName, String carCompanyName,int numberOfSeats, float groundClearance,
         int enginePower, int carType, long fuelTankCapacity, int fuelType, float weekdayPrice,
         float weekendPrice, int country, String registrationNumber, int carID)
     {
+
         this.carModel = modelName;
         this.carCompany = carCompanyName;
         this.iNoOfSeats = numberOfSeats;
@@ -33,8 +37,8 @@ public class Car {
         this.registrationNumber = registrationNumber;
         this.carID = carID;
     }
+    /** calculates the price of the car that the user is renting depending on how long he/she is using it for **/
     public float getRentalPrice(int noOfDays){
-        float price = weekdayPrice * noOfDays;
-        return price;
+        return weekdayPrice * noOfDays;
     }
 }

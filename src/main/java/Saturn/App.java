@@ -1,48 +1,67 @@
 package Saturn;
 
+import java.util.Scanner;
+
 public class App
 {
+    /** an array object is created to hold all the rental cars **/
     private static Car[] carCollection = new Car[36];
+
     public static void main( String[] args )
     {
         setupSystem();
         kickStart();
     }
-    private static void kickStart(){
+    /** calls all the functions and variables needed in the order that they are are needed in **/
+    private static void kickStart() {
+        Scanner sc = new Scanner(System.in);
         Car userCarChoice;
         Menu.displayWelcomeMessage();
         int userCountry = Menu.getUserCountry();
         displayCarList(userCountry);
         int rentalChoice;
-        do{
+        do {
             rentalChoice = Menu.getUserRentalChoice();
-            if(rentalChoice == 3)
+            if (rentalChoice == 3)
                 System.exit(0);
-            if(rentalChoice == 2) {
+            if (rentalChoice == 2) {
                 kickStart();
                 break;
-            }
-            else{
-                userCarChoice = Search.searchCarByID(rentalChoice, carCollection);
-                if(userCarChoice == null){
+            } else {
+                userCarChoice = Search.searchCarByIDAndCountry(rentalChoice, userCountry, carCollection);
+                if (userCarChoice == null) {
                     System.out.println("Invalid car choice, please enter a valid Car ID");
                 }
-                else{
+                else {
                     int noOfDays = Menu.getNumberOfDaysOfRent();
                     float price = userCarChoice.getRentalPrice(noOfDays);
                     int postConfirmChoice = Menu.confirmRentalAndGetNextUserChoice(price, noOfDays, userCarChoice);
                     if (postConfirmChoice == 1) {
                         Menu.displayTermsAndConditions();
+                        System.out.println("1. Book a different car \t 2. continue to transaction");
+                        int choice = sc.nextInt();
+                        if (choice == 1)
+                            kickStart();
                     }
                     UserTransaction transaction = new UserTransaction();
                     transaction.completeUserTransaction();
-                    kickStart();
+                    int finalUserDecision = Menu.postTransactionChoice();
+                    if (postConfirmChoice == 3)
+                            kickStart();
+                    else {
+                        if (finalUserDecision == 1)
+                            kickStart();
+                        else
+                            System.exit(0);
+                    }
                 }
             }
         }
-        while(userCarChoice == null);
+        while (userCarChoice == null);
     }
 
+    /** After taking the user's country, it displays all the cars that are available in that country and their details
+     * as well **/
     private static void displayCarList(int userCountry){
         for(int i = 0; i < carCollection.length - 1; i++){
             if (carCollection[i].country == userCountry){
@@ -55,11 +74,13 @@ public class App
                 System.out.println("Fuel Capacity: " + carCollection[i].fuelTankCapacity + "l");
                 System.out.println("Fuel Type: " + FuelType.getFuelTypeName(carCollection[i].fuelType));
                 System.out.println("Weekday Price: Rs " + carCollection[i].weekdayPrice);
-                System.out.println("Weekend Price: Rs 2" + carCollection[i].weekendPrice);
+                System.out.println("Weekend Price: Rs " + carCollection[i].weekendPrice);
                 System.out.println("Registration Number: " + carCollection[i].registrationNumber + "\n \n");
             }
         }
     }
+
+    /** Creates all the cars with all their details **/
     private static void setupSystem(){
         carCollection[0] = new Car("GTR", "Nissan", 4,
                 14, 562, CarType.SUPERCAR, 74, FuelType.PETROL,
